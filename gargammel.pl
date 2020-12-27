@@ -286,6 +286,7 @@ sub usage
   "\t\t\t\t\t\tspecies 5% will be contamination and 95% will be endogenous\n".
   "\t\t\t\t\t\tDefault: --comp ".$comp."\n".
  "\t--mock\t\t\t\t\tDo nothing, just print the commands that will be run\n".
+  "\t--seed\t[number]\t\t\t\t\tSet seed to [number] (default: no seed)\n".
   "\t-o\t\t\t\t\tOutput prefix (default: [input dir]/simadna)\n".
   " Either specify:\n".
   "\t\t-n\t[number]\t\tGenerate [number] fragments (default: ".$numberOfFragments.")\n".
@@ -445,7 +446,7 @@ my @mapdamagec;
 my $matfilec;
 my $briggsc;
 
-
+my $seed;
 
 my $se=0;
 my $ss;
@@ -458,8 +459,15 @@ my $methyl;
 my $dirWithChr = $ARGV[$#ARGV];
 
 usage() if ( @ARGV < 1 or
-	     ! GetOptions('help|?' => \$help, 'mock' => \$mock, 'methyl' => \$methyl, 'uniq' => \$uniq, 'se' => \$se, 'ss=s' => \$ss, 'distmis=i' => \$distmis, 'misince=s' => \$misince,'misincb=s' => \$misincb,'misincc=s' => \$misincc, 'comp=s' => \$comp,'mapdamage=s{2}' => \@mapdamage, 'mapdamagee=s{2}' => \@mapdamagee, 'mapdamageb=s{2}' => \@mapdamageb, 'mapdamagec=s{2}' => \@mapdamagec,'matfile=s' => \$matfile, 'damage=s' => \$briggs,'matfilee=s' => \$matfilee,'matfilenonmeth=s' => \$matfilenonmeth, ,'matfilemeth=s' => \$matfilemeth, 'damagee=s' => \$briggse,'matfileb=s' => \$matfileb, 'damageb=s' => \$briggsb,'matfilec=s' => \$matfilec, 'damagec=s' => \$briggsc,'o=s' => \$outputprefix, 'n=i' => \$numberOfFragments,'l=i' => \$fraglength, 's=s' => \$filefragsize, 'f=s' => \$filefragfreqsize, 'loc=s' => \$loc, 'fa=s' => \$fa, 'sa=s' => \$sa, 'rl=s' => \$rl, 'scale=s' => \$scale, 'c=f' => \$coverage, 'minsize=i' => \$minsize,'maxsize=i' => \$maxsize,'qs=i' => \$qs,'qs2=i' => \$qs2)
+	     ! GetOptions('help|?' => \$help, 'mock' => \$mock, 'seed=s' => \$seed, 'methyl' => \$methyl, 'uniq' => \$uniq, 'se' => \$se, 'ss=s' => \$ss, 'distmis=i' => \$distmis, 'misince=s' => \$misince,'misincb=s' => \$misincb,'misincc=s' => \$misincc, 'comp=s' => \$comp,'mapdamage=s{2}' => \@mapdamage, 'mapdamagee=s{2}' => \@mapdamagee, 'mapdamageb=s{2}' => \@mapdamageb, 'mapdamagec=s{2}' => \@mapdamagec,'matfile=s' => \$matfile, 'damage=s' => \$briggs,'matfilee=s' => \$matfilee,'matfilenonmeth=s' => \$matfilenonmeth, ,'matfilemeth=s' => \$matfilemeth, 'damagee=s' => \$briggse,'matfileb=s' => \$matfileb, 'damageb=s' => \$briggsb,'matfilec=s' => \$matfilec, 'damagec=s' => \$briggsc,'o=s' => \$outputprefix, 'n=i' => \$numberOfFragments,'l=i' => \$fraglength, 's=s' => \$filefragsize, 'f=s' => \$filefragfreqsize, 'loc=s' => \$loc, 'fa=s' => \$fa, 'sa=s' => \$sa, 'rl=s' => \$rl, 'scale=s' => \$scale, 'c=f' => \$coverage, 'minsize=i' => \$minsize,'maxsize=i' => \$maxsize,'qs=i' => \$qs,'qs2=i' => \$qs2)
           or defined $help );
+
+if( defined $seed){
+  srand($seed);
+  print STDERR "Using seed $seed \n";
+}else{
+  print STDERR "Seed is not set, simulation is not reproducible \n";
+}
 
 if( !(defined $ss) ){
   $ss = "HS25";
