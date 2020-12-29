@@ -286,8 +286,8 @@ sub usage
   "\t\t\t\t\t\tspecies 5% will be contamination and 95% will be endogenous\n".
   "\t\t\t\t\t\tDefault: --comp ".$comp."\n".
  "\t--mock\t\t\t\t\tDo nothing, just print the commands that will be run\n".
-  "\t--seed\t[number]\t\t\t\t\tSet seed to [number] (default: no seed)\n".
-  "\t--rseed\t[number]\t\t\t\t\tSet a random seed and print to stderr (default: no seed)\n".
+  "\t--seed\t[number]\t\t\tSet seed to [number] (default: no seed)\n".
+  "\t--rseed\t\t\t\t\tSet a random seed and print to stderr (default: no seed)\n".
   "\t-o\t\t\t\t\tOutput prefix (default: [input dir]/simadna)\n".
   " Either specify:\n".
   "\t\t-n\t[number]\t\tGenerate [number] fragments (default: ".$numberOfFragments.")\n".
